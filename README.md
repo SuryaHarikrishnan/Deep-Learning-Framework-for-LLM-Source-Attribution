@@ -1,24 +1,30 @@
-# Data
+# Deep Learning Framework for LLM Source Attribution
 
-## Dataset
-TXD-22: A Large-Scale Benchmark Dataset (66,000 rows with columns Question, Answer, Source).
+CMPSC 448 midterm project: identify which LLM wrote a response, using CNN and RNN (BiLSTM) classifiers.
+Dataset: TXD-22, 6 LLM families (ChatGPT, Claude, Gemini, Llama, Qwen, DeepSeek), 3,000 responses each.
 
-We use 6 LLM families, with 3,000 examples each (18,000 total):
-ChatGPT, Claude, Gemini, Llama, Qwen, DeepSeek.
+## Quick start
+```bash
+pip install -r requirements.txt
+python -m src.data.split          # create train/val/test splits
+python -m src.models.baselines    # run the TF-IDF baseline
+```
+See `data/README.md` for how to get the dataset.
 
-Column mapping used in code:
-- Question -> `input`
-- Answer -> `output`
-- Source -> `label`
+## Interface contract
+- Data: `tr, va, te, vocab, labels = get_loaders(mode)`, with mode in `"input"`, `"output"` or `"both"`
+- Model: takes a `(batch, 256)` tensor of token ids, returns `(batch, 6)` class scores
+- Training: `run(model, tr, va, te, labels)` returns accuracy and macro F1
+- Seed 42 everywhere. Splits are by question, so no question appears in two splits.
 
-## Setup
-1. Download the dataset and place the CSV in `data/raw/`
-   (file name: `TXD-22 A Large-Scale Benchmark Dataset.csv`, latin-1 encoded).
-2. Run `python -m src.data.split` from the repo root.
-   This creates `train.csv`, `val.csv` and `test.csv` in `data/processed/`.
+## Baseline results (TF-IDF + logistic regression, test set)
+| Input | Accuracy | Macro F1 |
+|-------|----------|----------|
+| input only | 0.164 | 0.133 |
+| output only | 0.863 | 0.863 |
+| input + output | 0.858 | 0.858 |
 
-## Splits
-Roughly 80/10/10 (about 14,400 train, 1,800 val, 1,800 test), seed 42.
-Split by question: the same question is asked to most LLMs, so all rows
-for a question stay in one split to prevent leakage.
-Data files are not committed to git.
+## Team workflow
+- Branch from `main` as `feature/<name>` and open a pull request to merge
+- Edit only your own files to avoid conflicts
+- Write short, clear commit messages

@@ -1,0 +1,18 @@
+# virtual environment
+.venv/
+
+# python and notebook caches
+__pycache__/
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+
+# saved model weights
+*.pt
+
+# dataset files stay local (keep the .gitkeep placeholders)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep

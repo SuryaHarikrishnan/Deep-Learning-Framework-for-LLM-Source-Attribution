@@ -18,5 +18,7 @@ Column mapping used in code:
    This creates `train.csv`, `val.csv` and `test.csv` in `data/processed/`.
 
 ## Splits
-Stratified 80/10/10 (14,400 train, 1,800 val, 1,800 test), seed 42.
+Roughly 80/10/10 (about 14,400 train, 1,800 val, 1,800 test), seed 42.
+Split by question: the same question is asked to most LLMs, so all rows
+for a question stay in one split to prevent leakage.
 Data files are not committed to git.

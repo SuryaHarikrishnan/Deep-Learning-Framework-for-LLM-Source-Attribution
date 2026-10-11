@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torch.nn.utils.rnn import pack_padded_sequence
 
 class BiLSTM(nn.Module):
     # Classifies a sequence of token IDs into one of the source classes.
@@ -24,4 +25,18 @@ class BiLSTM(nn.Module):
         self.classifier = nn.Linear(hidden_size * 2, num_classes)
 
     def forward(self, x):
-        raise NotImplementedError
+        # Count non-padding tokens per sequence; packed LSTMs require CPU lengths.
+        lengths = x.ne(0).sum(dim=1).clamp(min=1).cpu()
+        # Map token IDs from (batch, sequence) to (batch, sequence, embedding).
+        embedded = self.embedding(x)
+        # Exclude trailing padding from LSTM processing, including for uneven lengths.
+        packed = pack_padded_sequence(
+            embedded, lengths, batch_first=True, enforce_sorted=False
+        )
+        # Get the final hidden states from both directions of the bidirectional LSTM.
+        _, (hidden, _) = self.lstm(packed)
+
+        # Join the forward and backward features into one sequence representation.
+        representation = self.dropout(torch.cat((hidden[-2], hidden[-1]), dim=1))
+        # Return one unnormalized score per class for each input sequence.
+        return self.classifier(representation)

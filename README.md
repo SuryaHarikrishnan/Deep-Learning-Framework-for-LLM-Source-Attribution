@@ -28,3 +28,6 @@ See `data/README.md` for how to get the dataset.
 - Branch from `main` as `feature/<name>` and open a pull request to merge
 - Edit only your own files to avoid conflicts
 - Write short, clear commit messages
+
+
+[![Architecture diagram of suryaharikrishnan/deep-learning-framework-for-llm-source-attribution](https://gitdiagram.com/suryaharikrishnan/deep-learning-framework-for-llm-source-attribution/diagram.png)](https://gitdiagram.com/suryaharikrishnan/deep-learning-framework-for-llm-source-attribution?utm_source=readme&utm_medium=picture)

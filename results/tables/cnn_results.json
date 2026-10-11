@@ -1,0 +1,19 @@
+{
+  "model": "TextCNN",
+  "dataset": "TXD-22",
+  "input_mode": "output",
+  "training_samples": 14448,
+  "validation_samples": 1794,
+  "test_samples": 1758,
+  "epochs": 10,
+  "learning_rate": 0.001,
+  "batch_size": 64,
+  "embedding_dim": 128,
+  "filter_sizes": [3, 4, 5],
+  "filters_per_size": 100,
+  "dropout": 0.5,
+  "best_validation_accuracy": 0.8261,
+  "best_epoch": 7,
+  "test_accuracy": 0.8139931740614335,
+  "test_macro_f1": 0.813459369028319
+}

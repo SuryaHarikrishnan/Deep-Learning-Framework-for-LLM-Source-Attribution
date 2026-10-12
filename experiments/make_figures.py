@@ -7,7 +7,7 @@ import pandas as pd
 
 T = "results/tables/"
 F = "results/figures/"
-COLORS = {"TF-IDF + LR": "#7F7F7F", "CNN": "#2F5496", "BiLSTM": "#C55A11"}
+COLORS = {"TgF-IDF + LR": "#7F7F7F", "CNN": "#2F5496", "BiLSTM": "#C55A11"}
 CHANCE = 100 / 6  # six balanced classes
 
 

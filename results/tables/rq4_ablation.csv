@@ -1,0 +1,8 @@
+setting,accuracy,macro_f1
+Style features only (random forest),0.6376564277588168,0.6371561445560685
+Response length only (random forest),0.3771331058020478,0.3768301151669453
+Words only (baseline),0.8629124004550626,0.8627883694483073
+Words + punctuation + newlines,0.888509670079636,0.8884846745008126
+"Formatting stripped (no markdown, no newlines)",0.8845278725824801,0.8845298391289216
+Truncated to first 50 words (length removed),0.5836177474402731,0.5742979387767254
+Punctuation and newlines only (no words),0.5546075085324232,0.550755171322056
